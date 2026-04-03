@@ -1,6 +1,26 @@
 import { formatCurrency, formatDate } from '@/lib/utils'
-import { Calendar, FileText, DollarSign, Clock, Plus, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
+import { Calendar, FileText, DollarSign, Clock, Plus, ArrowRight, CheckCircle, AlertCircle, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
+
+const revenueData = [
+  { month: 'Nov', amount: 3840 },
+  { month: 'Dec', amount: 2960 },
+  { month: 'Jan', amount: 4320 },
+  { month: 'Feb', amount: 3680 },
+  { month: 'Mar', amount: 5120 },
+  { month: 'Apr', amount: 5748 },
+]
+
+const topAgents = [
+  { name: 'Sarah Chen', company: 'Ray White West Ryde', jobs: 8, revenue: 3832 },
+  { name: 'Michael Torres', company: 'McGrath Chatswood', jobs: 5, revenue: 2395 },
+  { name: 'Emma Liu', company: 'LJ Hooker Parramatta', jobs: 4, revenue: 1916 },
+]
+
+const pendingActions = [
+  { type: 'agreement', text: '42 Willoughby Road — James Patterson hasn\'t signed agreement', href: '/jobs/2', urgency: 'warning' },
+  { type: 'invoice', text: '22 Pacific Highway — Michael Chen invoice overdue 8 days', href: '/jobs/4', urgency: 'danger' },
+]
 
 // Mock data for demo
 const stats = [
@@ -172,12 +192,66 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick action reminder */}
-      <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
-        <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-amber-800">1 report awaiting payment</p>
-          <p className="text-xs text-amber-700 mt-0.5">22 Pacific Highway, Chatswood — Michael Chen hasn't paid yet. <Link href="/reports/1" className="underline">Send reminder →</Link></p>
+      {/* Bottom row */}
+      <div className="grid grid-cols-3 gap-6 mt-6">
+        {/* Revenue Chart */}
+        <div className="col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="font-semibold text-slate-900">Revenue (Last 6 Months)</h2>
+            <div className="flex items-center gap-1 text-green-600 text-sm font-medium">
+              <TrendingUp className="w-4 h-4" />+12% avg
+            </div>
+          </div>
+          <div className="flex items-end gap-3 h-32">
+            {revenueData.map((d) => {
+              const max = Math.max(...revenueData.map(r => r.amount))
+              const height = Math.round((d.amount / max) * 100)
+              const isLatest = d.month === 'Apr'
+              return (
+                <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
+                  <span className="text-xs text-slate-400">${(d.amount/1000).toFixed(1)}k</span>
+                  <div
+                    className={`w-full rounded-t-md transition-all ${isLatest ? 'bg-blue-600' : 'bg-slate-200'}`}
+                    style={{ height: `${height}%` }}
+                  />
+                  <span className="text-xs text-slate-500">{d.month}</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Agent leaderboard + pending actions */}
+        <div className="space-y-4">
+          {/* Agent leaderboard */}
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Users className="w-4 h-4 text-blue-600" />
+              <h2 className="font-semibold text-slate-900 text-sm">Top Agents (Apr)</h2>
+            </div>
+            <div className="space-y-3">
+              {topAgents.map((agent, i) => (
+                <div key={agent.name} className="flex items-center gap-3">
+                  <span className="text-xs font-bold text-slate-400 w-4">{i + 1}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-slate-900 truncate">{agent.name}</p>
+                    <p className="text-xs text-slate-400 truncate">{agent.company}</p>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-700">{agent.jobs} jobs</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Pending actions */}
+          <div className="space-y-2">
+            {pendingActions.map((action, i) => (
+              <Link key={i} href={action.href} className={`flex items-start gap-3 p-3 rounded-xl border text-sm transition-colors hover:opacity-90 ${action.urgency === 'danger' ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200'}`}>
+                <AlertCircle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${action.urgency === 'danger' ? 'text-red-500' : 'text-amber-500'}`} />
+                <span className={`text-xs ${action.urgency === 'danger' ? 'text-red-800' : 'text-amber-800'}`}>{action.text}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

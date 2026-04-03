@@ -11,13 +11,14 @@ import {
   Settings,
   LogOut,
   Building2,
-  ChevronLeft,
+  BookUser,
 } from 'lucide-react'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/jobs', label: 'Jobs', icon: Calendar },
   { href: '/reports', label: 'Reports', icon: FileText },
+  { href: '/contacts', label: 'Contacts', icon: BookUser },
   { href: '/team', label: 'Team', icon: Users },
   { href: '/settings', label: 'Settings', icon: Settings },
 ]
