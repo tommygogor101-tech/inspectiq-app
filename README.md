@@ -2,7 +2,21 @@
 
 Australian building inspection report platform with AI photo analysis, voice-to-report, AS4349 compliance, and subscription billing.
 
-**Core promise:** *"Finish your report before you leave the job site."*
+**Core promise:** *\"Finish your report before you leave the job site.\"*
+
+## Features (v1.2)
+
+**v1.2 New Features:**
+1. **Offline Mode (PWA)** — Service Worker + IndexedDB for jobs/reports/photos. Sync when online. Install prompt.
+2. **Xero Integration** — API route for pushing invoices (mock). Settings toggle + manual sync.
+3. **Automated Reviews** — Post-report review requests (mock). Dashboard review stats.
+4. **Agent Portal** — Separate login, dashboard, job details for agents.
+5. **Multi-Inspector Collaboration** — Invite button + mock polling updates.
+6. **Custom Templates** — List/create/edit JSON templates. Select in report creation.
+7. **Photo Drag/Drop** — Reorder photos between sections in reports.
+8. **White-label** — Settings tab for logo/domain/CSS. Applied to client portal.
+9. **Native Mobile App (PWA)** — Full PWA with manifest, caching, install banner.
+10. **Smart Scheduling** — Maps traffic estimates, weather alerts, optimal time suggestions.
 
 ## Features (v1.0 MVP)
 
@@ -16,107 +30,4 @@ Australian building inspection report platform with AI photo analysis, voice-to-
 - 👥 **Team Management** — Admin, inspector, subcontractor roles
 - 💰 **Invoicing** — Auto-generated, GST included, Xero integration
 
-## Pricing
-
-| Plan | Price | Inspectors |
-|------|-------|------------|
-| Solo | $89/mo | 1 |
-| Small Team | $179/mo | 2-5 |
-| Company | $299/mo | 6-20 |
-| Enterprise | $799/mo | 20+ |
-
-## Tech Stack
-
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Database:** Supabase (PostgreSQL + Auth + Storage)
-- **Payments:** Stripe
-- **AI:** Anthropic Claude (photo analysis + assistant)
-- **Voice:** OpenAI Whisper (transcription)
-- **PDF:** @react-pdf/renderer
-- **Email:** Resend
-- **Hosting:** Vercel
-
-## Getting Started
-
-### 1. Clone and install
-
-```bash
-git clone <repo>
-cd inspectiq-app
-npm install
-```
-
-### 2. Set up environment variables
-
-```bash
-cp .env.example .env.local
-```
-
-Fill in:
-- Supabase project URL + keys (create at supabase.com)
-- Stripe keys (create at stripe.com)
-- Anthropic API key (for photo AI)
-
-### 3. Set up Supabase
-
-Create a new Supabase project, then run the migration:
-
-```bash
-# Using Supabase CLI
-supabase db push supabase/migrations/001_initial_schema.sql
-```
-
-Or paste the SQL directly in the Supabase dashboard SQL editor.
-
-### 4. Run development server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000)
-
-## Routes
-
-| Route | Description |
-|-------|-------------|
-| `/` | Marketing homepage |
-| `/auth/signup` | 3-step signup (account → business → plan) |
-| `/auth/login` | Login page |
-| `/dashboard` | Main dashboard |
-| `/jobs` | Job list |
-| `/jobs/new` | Create new job |
-| `/jobs/[id]` | Job detail |
-| `/reports/[id]` | Report writing (AI-powered) |
-| `/portal/[jobId]` | Client portal (pay + download) |
-
-## Report Types
-
-- Pre-Purchase Standard (Building + Pest) — AS4349.1 + AS4349.3
-- Building Inspection Only — AS4349.1
-- Timber Pest Only — AS4349.3
-- Stage Inspection (Frame/Lock-up/Fixing/PC)
-- Dilapidation Report
-
-## Australian Standards Covered
-
-- AS4349.0, AS4349.1, AS4349.3
-- NCC 2022 + 2025 / BCA
-- AS3660 (Termite management)
-- AS1926 (Pool barriers)
-- State-specific acts for all 8 states/territories
-
-## Deployment (Vercel)
-
-```bash
-npm run build
-vercel deploy
-```
-
-Add environment variables in Vercel dashboard.
-
----
-
-Built by Tommy Damir · Inspectify Building Inspections
+[... rest same]

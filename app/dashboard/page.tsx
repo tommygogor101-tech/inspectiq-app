@@ -1,5 +1,5 @@
 import { formatCurrency, formatDate } from '@/lib/utils'
-import { Calendar, FileText, DollarSign, Clock, Plus, ArrowRight, CheckCircle, AlertCircle, TrendingUp, Users } from 'lucide-react'
+import { Calendar, FileText, DollarSign, Clock, Plus, ArrowRight, CheckCircle, AlertCircle, TrendingUp, Users, Star } from 'lucide-react'
 import Link from 'next/link'
 
 const revenueData = [
@@ -28,9 +28,10 @@ const stats = [
   { label: 'Revenue This Month', value: '$5,748', icon: DollarSign, change: '+18% from last month', positive: true },
   { label: 'Reports Pending', value: '3', icon: FileText, change: '2 awaiting payment', positive: false },
   { label: 'Avg Report Time', value: '42 min', icon: Clock, change: '-8 min from last month', positive: true },
+  { label: 'Review Score', value: '4.9/5 (23)', icon: Star, change: '+0.2 from last month', positive: true },
 ]
 
-const upcomingJobs = [
+const upcomingJobs: any[] = [
   {
     id: '1',
     address: '14/18 Orchard Street, West Ryde NSW 2114',
@@ -113,7 +114,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
         {stats.map((stat) => {
           const Icon = stat.icon
           return (

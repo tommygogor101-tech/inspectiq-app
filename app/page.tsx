@@ -147,7 +147,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <p className="text-center text-sm text-slate-400 mt-8">All prices AUD + GST. Compare: Spectora $99/mo (US only, no AU standards) · Formitize $80/mo (no AI)</p>
+          <p className="text-center text-sm text-slate-400 mt-8">All prices AUD + GST. Compare: other US software $99/mo (US only, no AU standards) · other apps $80/mo (no AI)</p>
         </div>
       </section>
 

@@ -12,6 +12,7 @@ import {
   LogOut,
   Building2,
   BookUser,
+  BookOpen,
 } from 'lucide-react'
 
 const navItems = [
@@ -21,6 +22,8 @@ const navItems = [
   { href: '/contacts', label: 'Contacts', icon: BookUser },
   { href: '/team', label: 'Team', icon: Users },
   { href: '/settings', label: 'Settings', icon: Settings },
+  { href: '/templates', label: 'Templates', icon: BookOpen },
+  { href: '/agent', label: 'Agent Portal', icon: Users },
 ]
 
 export default function Sidebar() {
