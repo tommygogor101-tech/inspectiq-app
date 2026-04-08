@@ -200,10 +200,30 @@ export default function NewJobPage() {
 
   const { total: suggestedTotal, breakdown } = calcSuggestedFee(form.inspection_type, propertyDetails, addOns)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('Job created! Agreement email sent to client.')
-    router.push('/jobs')
+    setSubmitting(true)
+    setSubmitError(null)
+    try {
+      const res = await fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setSubmitError(data.error || 'Failed to create job.')
+        return
+      }
+      router.push(`/jobs/${data.job.id}`)
+    } catch {
+      setSubmitError('Network error. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const buildingTypeIcon = propertyDetails?.building_type === 'apartment' || propertyDetails?.building_type === 'unit'
@@ -534,12 +554,19 @@ export default function NewJobPage() {
         </div>
 
         {/* Actions */}
+        {submitError && (
+          <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">
+            {submitError}
+          </div>
+        )}
         <div className="flex gap-3">
           <button
             type="submit"
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg text-sm font-medium transition-colors"
+            disabled={submitting}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
           >
-            Create Job
+            {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
+            {submitting ? 'Creating Job...' : 'Create Job'}
           </button>
           <Link
             href="/jobs"
